@@ -40,8 +40,7 @@ const Index = () => {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
+        duration: 0.6
       }
     }
   };
@@ -71,7 +70,7 @@ const Index = () => {
         className="pt-20"
       >
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-20 px-4">
+        <section className="relative overflow-hidden py-12 sm:py-16 lg:py-20 px-4">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-10"></div>
           <motion.div 
             variants={itemVariants}
@@ -81,17 +80,17 @@ const Index = () => {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-8"
+              className="mb-6 sm:mb-8"
             >
-              <Badge className="mb-4 px-4 py-2 text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors">
-                <Zap className="w-4 h-4 mr-2" />
+              <Badge className="mb-4 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors">
+                <Zap className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                 Revolutionizing Government Services
               </Badge>
             </motion.div>
             
             <motion.h1 
               variants={itemVariants}
-              className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight"
             >
               <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 NyayaSetu
@@ -100,7 +99,7 @@ const Index = () => {
             
             <motion.p 
               variants={itemVariants}
-              className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed"
+              className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4"
             >
               Your gateway to comprehensive government services and legal assistance. 
               Submit complaints, track progress, and connect with legal professionals seamlessly.
@@ -108,16 +107,16 @@ const Index = () => {
             
             <motion.div 
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 justify-center px-4"
             >
               <Link to="/dashboard">
-                <Button size="lg" className="group bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                <Button size="lg" className="group bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto">
                   Get Started
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link to="/complaints">
-                <Button variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold border-2 hover:bg-blue-50 transition-all duration-300">
+                <Button variant="outline" size="lg" className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold border-2 hover:bg-blue-50 transition-all duration-300 w-full sm:w-auto">
                   File Complaint
                 </Button>
               </Link>
@@ -128,10 +127,10 @@ const Index = () => {
         {/* Stats Section */}
         <motion.section 
           variants={itemVariants}
-          className="py-16 px-4 bg-white/80 backdrop-blur-sm"
+          className="py-12 sm:py-16 px-4 bg-white/80 backdrop-blur-sm"
         >
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}
@@ -140,10 +139,10 @@ const Index = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="text-center"
                 >
-                  <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-600 mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-gray-600 font-medium">{stat.label}</div>
+                  <div className="text-sm sm:text-base text-gray-600 font-medium">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -153,22 +152,22 @@ const Index = () => {
         {/* Services Section */}
         <motion.section 
           variants={itemVariants}
-          className="py-20 px-4"
+          className="py-16 sm:py-20 px-4"
         >
           <div className="max-w-7xl mx-auto">
             <motion.div 
               variants={itemVariants}
-              className="text-center mb-16"
+              className="text-center mb-12 sm:mb-16"
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
                 Our Services
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
                 Comprehensive solutions for all your government service needs and legal requirements
               </p>
             </motion.div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {services.map((service, index) => (
                 <motion.div
                   key={index}
@@ -180,15 +179,15 @@ const Index = () => {
                 >
                   <Card className="h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white/80 backdrop-blur-sm">
                     <CardHeader className="text-center pb-4">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <service.icon className="w-8 h-8 text-white" />
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <service.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                       </div>
-                      <CardTitle className="text-xl font-bold text-gray-900">
+                      <CardTitle className="text-lg sm:text-xl font-bold text-gray-900">
                         {service.title}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <CardDescription className="text-gray-600 text-center leading-relaxed">
+                      <CardDescription className="text-gray-600 text-center leading-relaxed text-sm sm:text-base">
                         {service.desc}
                       </CardDescription>
                     </CardContent>
@@ -202,12 +201,12 @@ const Index = () => {
         {/* Features Section */}
         <motion.section 
           variants={itemVariants}
-          className="py-20 px-4 bg-gradient-to-br from-blue-50 to-indigo-50"
+          className="py-16 sm:py-20 px-4 bg-gradient-to-br from-blue-50 to-indigo-50"
         >
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <motion.div variants={itemVariants}>
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                   Why Choose NyayaSetu?
                 </h2>
                 <div className="space-y-6">
@@ -224,12 +223,12 @@ const Index = () => {
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       className="flex items-start space-x-4"
                     >
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <feature.icon className="w-6 h-6 text-white" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
-                        <p className="text-gray-600">{feature.desc}</p>
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
+                        <p className="text-gray-600 text-sm sm:text-base">{feature.desc}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -238,14 +237,14 @@ const Index = () => {
               
               <motion.div 
                 variants={itemVariants}
-                className="relative"
+                className="relative order-first lg:order-last"
               >
-                <div className="aspect-square bg-gradient-to-br from-blue-400 to-indigo-600 rounded-3xl p-8 shadow-2xl">
-                  <div className="h-full bg-white rounded-2xl p-8 flex items-center justify-center">
+                <div className="aspect-square bg-gradient-to-br from-blue-400 to-indigo-600 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                  <div className="h-full bg-white rounded-2xl p-6 sm:p-8 flex items-center justify-center">
                     <div className="text-center">
-                      <Scale className="w-24 h-24 text-blue-600 mx-auto mb-4" />
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Justice for All</h3>
-                      <p className="text-gray-600">Ensuring fair and transparent government services</p>
+                      <Scale className="w-20 h-20 sm:w-24 sm:h-24 text-blue-600 mx-auto mb-4" />
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Justice for All</h3>
+                      <p className="text-gray-600 text-sm sm:text-base">Ensuring fair and transparent government services</p>
                     </div>
                   </div>
                 </div>
@@ -257,33 +256,33 @@ const Index = () => {
         {/* CTA Section */}
         <motion.section 
           variants={itemVariants}
-          className="py-20 px-4 bg-gradient-to-r from-blue-600 to-indigo-600"
+          className="py-16 sm:py-20 px-4 bg-gradient-to-r from-blue-600 to-indigo-600"
         >
           <div className="max-w-4xl mx-auto text-center">
             <motion.h2 
               variants={itemVariants}
-              className="text-4xl md:text-5xl font-bold text-white mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6"
             >
               Ready to Get Started?
             </motion.h2>
             <motion.p 
               variants={itemVariants}
-              className="text-xl text-blue-100 mb-8"
+              className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8 px-4"
             >
               Join thousands of citizens who trust NyayaSetu for their government service needs
             </motion.p>
             <motion.div 
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 justify-center px-4"
             >
               <Link to="/auth">
-                <Button size="lg" variant="secondary" className="px-8 py-4 text-lg font-semibold bg-white text-blue-600 hover:bg-blue-50 transition-all duration-300">
+                <Button size="lg" variant="secondary" className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold bg-white text-blue-600 hover:bg-blue-50 transition-all duration-300 w-full sm:w-auto">
                   Create Account
-                  <ChevronRight className="ml-2 h-5 w-5" />
+                  <ChevronRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="px-8 py-4 text-lg font-semibold border-white text-white hover:bg-white hover:text-blue-600 transition-all duration-300">
-                <Phone className="mr-2 h-5 w-5" />
+              <Button size="lg" variant="outline" className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold border-white text-white hover:bg-white hover:text-blue-600 transition-all duration-300 w-full sm:w-auto">
+                <Phone className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 Contact Support
               </Button>
             </motion.div>
