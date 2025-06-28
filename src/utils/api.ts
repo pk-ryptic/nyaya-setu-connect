@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 
 // API Configuration
@@ -12,6 +13,9 @@ const api = axios.create({
   },
 });
 
+// Store for request timing
+const requestTimings = new Map<string, Date>();
+
 // Request interceptor for adding auth token
 api.interceptors.request.use(
   (config) => {
@@ -20,8 +24,11 @@ api.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
     
-    // Add request timestamp for debugging
-    config.metadata = { startTime: new Date() };
+    // Add request timestamp for debugging using a unique identifier
+    const requestId = `${config.method}_${config.url}_${Date.now()}`;
+    requestTimings.set(requestId, new Date());
+    (config as any).requestId = requestId;
+    
     console.log(`🚀 API Request: ${config.method?.toUpperCase()} ${config.url}`);
     
     return config;
@@ -35,15 +42,26 @@ api.interceptors.request.use(
 // Response interceptor for handling responses and errors
 api.interceptors.response.use(
   (response) => {
-    const duration = new Date().getTime() - response.config.metadata?.startTime?.getTime();
+    const requestId = (response.config as any).requestId;
+    const startTime = requestTimings.get(requestId);
+    const duration = startTime ? new Date().getTime() - startTime.getTime() : 0;
+    
+    if (requestId) {
+      requestTimings.delete(requestId);
+    }
+    
     console.log(`✅ API Response: ${response.config.method?.toUpperCase()} ${response.config.url} (${duration}ms)`);
     
     return response;
   },
   (error) => {
-    const duration = error.config?.metadata?.startTime 
-      ? new Date().getTime() - error.config.metadata.startTime.getTime()
-      : 0;
+    const requestId = (error.config as any)?.requestId;
+    const startTime = requestTimings.get(requestId);
+    const duration = startTime ? new Date().getTime() - startTime.getTime() : 0;
+    
+    if (requestId) {
+      requestTimings.delete(requestId);
+    }
     
     console.error(`❌ API Error: ${error.config?.method?.toUpperCase()} ${error.config?.url} (${duration}ms)`, error);
     
