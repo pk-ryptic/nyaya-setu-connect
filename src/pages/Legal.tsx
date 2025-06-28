@@ -336,7 +336,7 @@ const Legal = () => {
                 </Card>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Nyaya Bandhu Section */}
           <motion.div
