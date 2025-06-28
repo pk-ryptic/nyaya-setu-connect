@@ -79,13 +79,13 @@ const Navbar = () => {
 
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center space-x-3">
-            <Link to="/auth/login">
+            <Link to="/auth">
               <Button variant="ghost" className="text-gray-600 hover:text-blue-600">
                 <LogIn className="w-4 h-4 mr-2" />
                 Login
               </Button>
             </Link>
-            <Link to="/auth/register">
+            <Link to="/auth">
               <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
                 <UserPlus className="w-4 h-4 mr-2" />
                 Register
@@ -133,13 +133,13 @@ const Navbar = () => {
               ))}
               
               <div className="pt-4 border-t space-y-2">
-                <Link to="/auth/login" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
                   <Button variant="ghost" className="w-full justify-start">
                     <LogIn className="w-4 h-4 mr-2" />
                     Login
                   </Button>
                 </Link>
-                <Link to="/auth/register" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
                   <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600">
                     <UserPlus className="w-4 h-4 mr-2" />
                     Register

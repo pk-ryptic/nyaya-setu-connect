@@ -10,6 +10,9 @@ import Complaints from "./pages/Complaints";
 import Legal from "./pages/Legal";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import AuthSelection from "./pages/auth/AuthSelection";
+import UserLogin from "./pages/auth/user/UserLogin";
+import UserRegister from "./pages/auth/user/UserRegister";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -34,8 +37,18 @@ const App = () => (
           <Route path="/complaints" element={<Complaints />} />
           <Route path="/complaints/new" element={<Complaints />} />
           <Route path="/legal" element={<Legal />} />
+          
+          {/* Auth Routes */}
+          <Route path="/auth" element={<AuthSelection />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />
+          
+          {/* User Auth Routes */}
+          <Route path="/auth/user/login" element={<UserLogin />} />
+          <Route path="/auth/user/register" element={<UserRegister />} />
+          
+          {/* TODO: Add lawyer, employee, and admin auth routes */}
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
