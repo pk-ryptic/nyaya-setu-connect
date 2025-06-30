@@ -1,146 +1,188 @@
 
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { 
-  User, 
-  Scale, 
-  Building, 
-  Shield,
-  ArrowRight
-} from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { User, Scale, Building2, Shield, ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const AuthSelection = () => {
-  const userTypes = [
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6 }
+    }
+  };
+
+  const roles = [
     {
-      id: 'user',
-      title: 'Citizen',
-      description: 'File complaints and access government services',
+      title: "Citizen",
+      description: "Access government services and file complaints",
       icon: User,
-      color: 'from-blue-500 to-blue-600',
-      features: ['File complaints', 'Track status', 'Get legal help']
+      color: "from-blue-500 to-cyan-500",
+      bgColor: "bg-blue-50",
+      textColor: "text-blue-600",
+      borderColor: "border-blue-200",
+      path: "/auth/user/login",
+      registerPath: "/auth/user/register"
     },
     {
-      id: 'lawyer',
-      title: 'Lawyer',
-      description: 'Provide legal assistance and consultations',
+      title: "Legal Professional",
+      description: "Provide legal assistance and consultation",
       icon: Scale,
-      color: 'from-purple-500 to-purple-600',
-      features: ['Offer consultations', 'Manage cases', 'Pro bono services']
+      color: "from-purple-500 to-pink-500",
+      bgColor: "bg-purple-50",
+      textColor: "text-purple-600",
+      borderColor: "border-purple-200",
+      path: "/auth/lawyer/login",
+      registerPath: "/auth/lawyer/register"
     },
     {
-      id: 'employee',
-      title: 'Government Employee',
-      description: 'Handle and process citizen complaints',
-      icon: Building,
-      color: 'from-green-500 to-green-600',
-      features: ['Process complaints', 'Update status', 'Generate reports']
+      title: "Government Employee",
+      description: "Manage cases and provide official responses",
+      icon: Building2,
+      color: "from-orange-500 to-red-500",
+      bgColor: "bg-orange-50",
+      textColor: "text-orange-600",
+      borderColor: "border-orange-200",
+      path: "/auth/employee/login",
+      registerPath: null
     },
     {
-      id: 'admin',
-      title: 'Administrator',
-      description: 'Manage platform and oversee operations',
+      title: "Administrator",
+      description: "System administration and oversight",
       icon: Shield,
-      color: 'from-red-500 to-red-600',
-      features: ['System management', 'User oversight', 'Analytics']
+      color: "from-red-500 to-gray-600",
+      bgColor: "bg-red-50",
+      textColor: "text-red-600",
+      borderColor: "border-red-200",
+      path: "/auth/admin/login",
+      registerPath: null
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-6xl"
-      >
-        {/* Header */}
-        <div className="text-center mb-12">
-          <Link to="/" className="inline-block mb-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto">
-              <Scale className="w-8 h-8 text-white" />
-            </div>
-          </Link>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
-            Welcome to NyayaSetu
-          </h1>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Choose your role to get started with our comprehensive government services platform
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 flex items-center justify-center p-4">
+      {/* Background Animation */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-4 h-4 bg-blue-400/20 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
 
-        {/* User Type Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {userTypes.map((type, index) => (
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="w-full max-w-6xl relative z-10"
+      >
+        <motion.div variants={itemVariants} className="text-center mb-16">
+          <Badge className="mb-6 px-6 py-3 text-lg font-medium bg-blue-100 text-blue-800 border-blue-200">
+            <Sparkles className="w-5 h-5 mr-2" />
+            NyayaSetu Authentication
+          </Badge>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Choose Your Role
+            </span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Select your access level to continue to the appropriate portal
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {roles.map((role, index) => (
             <motion.div
-              key={type.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
+              key={index}
+              variants={itemVariants}
+              whileHover={{ y: -10, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               className="group"
             >
-              <Card className="h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-300">
+              <Card className={`h-full ${role.bgColor} ${role.borderColor} border-2 hover:shadow-2xl transition-all duration-300 backdrop-blur-sm`}>
                 <CardHeader className="text-center pb-4">
-                  <div className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-r ${type.color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <type.icon className="w-8 h-8 text-white" />
+                  <div className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${role.color} rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                    <role.icon className="w-10 h-10 text-white" />
                   </div>
-                  <CardTitle className="text-xl font-bold text-gray-900">
-                    {type.title}
+                  <CardTitle className={`text-2xl font-bold ${role.textColor} mb-2`}>
+                    {role.title}
                   </CardTitle>
-                  <CardDescription className="text-gray-600">
-                    {type.description}
+                  <CardDescription className="text-gray-600 text-center">
+                    {role.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
-                    {type.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-sm text-gray-600">
-                        <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-3"></div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="grid grid-cols-2 gap-2 pt-4">
-                    <Link to={`/auth/${type.id}/login`}>
-                      <Button variant="outline" size="sm" className="w-full">
-                        Login
-                      </Button>
-                    </Link>
-                    <Link to={`/auth/${type.id}/register`}>
-                      <Button size="sm" className={`w-full bg-gradient-to-r ${type.color} hover:opacity-90`}>
+                
+                <CardContent className="pt-0 space-y-4">
+                  <Link to={role.path}>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`w-full bg-gradient-to-r ${role.color} text-white py-3 px-6 rounded-xl font-semibold flex items-center justify-center group transition-all duration-300 shadow-lg hover:shadow-xl`}
+                    >
+                      Sign In
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </motion.div>
+                  </Link>
+                  
+                  {role.registerPath && (
+                    <Link to={role.registerPath}>
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`w-full border-2 border-current ${role.textColor} py-3 px-6 rounded-xl font-semibold text-center hover:bg-current hover:text-white transition-all duration-300`}
+                      >
                         Register
-                      </Button>
+                      </motion.div>
                     </Link>
-                  </div>
+                  )}
+                  
+                  {!role.registerPath && (
+                    <div className="text-center text-sm text-gray-500 py-3">
+                      Contact administrator for access
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
 
-        {/* Quick Actions */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center space-y-4"
-        >
-          <p className="text-gray-600">Or continue as guest with limited access</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/complaints">
-              <Button variant="outline" className="px-6">
-                File Complaint as Guest
-              </Button>
-            </Link>
-            <Link to="/">
-              <Button variant="ghost" className="px-6">
-                <ArrowRight className="w-4 h-4 mr-2 rotate-180" />
-                Back to Home
-              </Button>
-            </Link>
-          </div>
+        <motion.div variants={itemVariants} className="text-center mt-16">
+          <Link 
+            to="/" 
+            className="inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors text-lg font-medium"
+          >
+            ← Back to Home
+          </Link>
         </motion.div>
       </motion.div>
     </div>

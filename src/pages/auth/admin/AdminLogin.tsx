@@ -1,234 +1,223 @@
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { 
-  Eye, 
-  EyeOff, 
-  Mail, 
-  Lock, 
-  ArrowRight,
-  Shield,
-  ArrowLeft,
-  Key
-} from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useToast } from '@/hooks/use-toast';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Eye, EyeOff, Mail, Lock, Shield, ArrowLeft, Sparkles, ShieldCheck, Crown } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const AdminLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    username: '',
+    adminId: '',
+    email: '',
     password: '',
-    adminKey: ''
+    securityCode: ''
   });
-  
-  const { toast } = useToast();
-  const navigate = useNavigate();
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Admin login:', formData);
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      // Validate admin key format (example validation)
-      if (formData.adminKey.length < 16) {
-        throw new Error('Invalid administrator key');
+  const containerVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
       }
+    }
+  };
 
-      await new Promise(resolve => setTimeout(resolve, 2500));
-      
-      toast({
-        title: "Admin Access Granted",
-        description: "Welcome to the Administrator Dashboard",
-      });
-      
-      navigate('/dashboard');
-    } catch (error) {
-      toast({
-        title: "Access Denied",
-        description: error instanceof Error ? error.message : "Invalid administrator credentials.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsLoading(false);
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.4 }
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-md"
-      >
-        {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-black to-gray-900 flex items-center justify-center p-4">
+      {/* Background Animation */}
+      <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-center mb-8"
-        >
-          <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Shield className="w-8 h-8 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Administrator Access</h1>
-          <p className="text-gray-600">System administration and management</p>
+          className="absolute -top-40 -right-40 w-80 h-80 bg-red-600 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -100, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute -bottom-40 -left-40 w-80 h-80 bg-gray-600 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+          animate={{
+            x: [0, -100, 0],
+            y: [0, 100, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="w-full max-w-md relative z-10"
+      >
+        <motion.div variants={itemVariants} className="text-center mb-8">
+          <Link to="/auth" className="inline-flex items-center text-red-400 hover:text-red-300 mb-4 transition-colors">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to selection
+          </Link>
+          <Badge className="mb-4 px-4 py-2 bg-red-900/50 text-red-200 border-red-800">
+            <Crown className="w-4 h-4 mr-2" />
+            System Administrator
+          </Badge>
         </motion.div>
 
-        <Card className="shadow-xl border-0 border-t-4 border-t-red-500">
-          <CardHeader className="text-center pb-4">
-            <CardTitle className="text-2xl font-bold text-red-700">Secure Admin Login</CardTitle>
-            <CardDescription>
-              High-privilege access requires additional verification
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent className="space-y-6">
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <Label htmlFor="username">Administrator Username</Label>
-                <div className="relative mt-1">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <Input
-                    id="username"
-                    type="text"
-                    value={formData.username}
-                    onChange={(e) => handleInputChange('username', e.target.value)}
-                    placeholder="admin.username"
-                    className="pl-10"
-                    required
-                  />
-                </div>
+        <motion.div variants={itemVariants}>
+          <Card className="backdrop-blur-sm bg-gray-900/80 border border-red-800/50 shadow-2xl">
+            <CardHeader className="text-center space-y-2">
+              <CardTitle className="text-2xl font-bold bg-gradient-to-r from-red-400 to-gray-300 bg-clip-text text-transparent">
+                Admin Access
+              </CardTitle>
+              <CardDescription className="text-gray-400">
+                Maximum security clearance required
+              </CardDescription>
+              <div className="flex items-center justify-center space-x-2 text-sm text-red-400 bg-red-900/30 px-3 py-2 rounded-lg border border-red-800/50">
+                <ShieldCheck className="w-4 h-4" />
+                <span>Highest Level Security</span>
               </div>
+            </CardHeader>
+            
+            <CardContent className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <motion.div variants={itemVariants} className="space-y-2">
+                  <Label htmlFor="adminId" className="text-sm font-medium text-gray-300">
+                    Administrator ID
+                  </Label>
+                  <div className="relative">
+                    <Shield className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-4 h-4" />
+                    <Input
+                      id="adminId"
+                      type="text"
+                      placeholder="Enter administrator ID"
+                      value={formData.adminId}
+                      onChange={(e) => setFormData({...formData, adminId: e.target.value})}
+                      className="pl-10 bg-gray-800/50 border-gray-700 text-white focus:border-red-500 focus:ring-red-500"
+                      required
+                    />
+                  </div>
+                </motion.div>
 
-              <div>
-                <Label htmlFor="adminKey">Administrator Key</Label>
-                <div className="relative mt-1">
-                  <Key className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <Input
-                    id="adminKey"
-                    type="password"
-                    value={formData.adminKey}
-                    onChange={(e) => handleInputChange('adminKey', e.target.value)}
-                    placeholder="Enter administrator key"
-                    className="pl-10"
-                    required
-                  />
-                </div>
-                <p className="text-xs text-gray-500 mt-1">Unique administrator access key</p>
-              </div>
+                <motion.div variants={itemVariants} className="space-y-2">
+                  <Label htmlFor="email" className="text-sm font-medium text-gray-300">
+                    Administrative Email
+                  </Label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-4 h-4" />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="Enter administrative email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      className="pl-10 bg-gray-800/50 border-gray-700 text-white focus:border-red-500 focus:ring-red-500"
+                      required
+                    />
+                  </div>
+                </motion.div>
 
-              <div>
-                <Label htmlFor="password">Password</Label>
-                <div className="relative mt-1">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <Input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={formData.password}
-                    onChange={(e) => handleInputChange('password', e.target.value)}
-                    placeholder="Enter your password"
-                    className="pl-10 pr-10"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                <motion.div variants={itemVariants} className="space-y-2">
+                  <Label htmlFor="password" className="text-sm font-medium text-gray-300">
+                    Master Password
+                  </Label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-4 h-4" />
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Enter master password"
+                      value={formData.password}
+                      onChange={(e) => setFormData({...formData, password: e.target.value})}
+                      className="pl-10 pr-10 bg-gray-800/50 border-gray-700 text-white focus:border-red-500 focus:ring-red-500"
+                      required
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 hover:bg-transparent"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="w-4 h-4 text-gray-500" />
+                      ) : (
+                        <Eye className="w-4 h-4 text-gray-500" />
+                      )}
+                    </Button>
+                  </div>
+                </motion.div>
+
+                <motion.div variants={itemVariants} className="space-y-2">
+                  <Label htmlFor="securityCode" className="text-sm font-medium text-gray-300">
+                    Security Code
+                  </Label>
+                  <div className="relative">
+                    <ShieldCheck className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-4 h-4" />
+                    <Input
+                      id="securityCode"
+                      type="text"
+                      placeholder="Enter 6-digit security code"
+                      value={formData.securityCode}
+                      onChange={(e) => setFormData({...formData, securityCode: e.target.value})}
+                      className="pl-10 bg-gray-800/50 border-gray-700 text-white focus:border-red-500 focus:ring-red-500"
+                      maxLength={6}
+                      required
+                    />
+                  </div>
+                </motion.div>
+
+                <motion.div variants={itemVariants} className="text-right">
+                  <Link to="#" className="text-sm text-red-400 hover:text-red-300 transition-colors">
+                    Emergency Access Protocol
+                  </Link>
+                </motion.div>
+
+                <motion.div variants={itemVariants}>
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-red-600 to-gray-800 hover:from-red-700 hover:to-gray-900 text-white font-semibold py-3 transition-all duration-300 transform hover:scale-105 border border-red-800/50"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    Access Control Panel
+                  </Button>
+                </motion.div>
+              </form>
 
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
-              >
-                {isLoading ? (
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>Verifying Access...</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center space-x-2">
-                    <span>Access Admin Panel</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                )}
-              </Button>
-            </form>
-
-            {/* Security Warnings */}
-            <div className="space-y-3">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-red-50 border border-red-200 rounded-lg p-3"
-              >
-                <div className="flex items-center space-x-2">
-                  <Shield className="w-4 h-4 text-red-600" />
-                  <p className="text-sm text-red-800">
-                    <strong>Security Alert:</strong> All admin activities are monitored and logged
-                  </p>
-                </div>
+              <motion.div variants={itemVariants} className="text-center">
+                <p className="text-xs text-gray-500">
+                  All administrative actions are logged and monitored
+                </p>
               </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="bg-amber-50 border border-amber-200 rounded-lg p-3"
-              >
-                <div className="flex items-center space-x-2">
-                  <Key className="w-4 h-4 text-amber-600" />
-                  <p className="text-sm text-amber-800">
-                    Unauthorized access attempts will result in account suspension
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Contact Support */}
-            <div className="text-center">
-              <p className="text-gray-600 text-sm">
-                Issues with access?{' '}
-                <Link to="/support" className="text-red-600 font-medium hover:underline">
-                  Contact System Support
-                </Link>
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Navigation */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-6 text-center"
-        >
-          <Link to="/auth">
-            <Button variant="ghost" className="w-full">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Role Selection
-            </Button>
-          </Link>
+            </CardContent>
+          </Card>
         </motion.div>
       </motion.div>
     </div>
