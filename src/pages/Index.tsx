@@ -1,4 +1,3 @@
-
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -259,7 +258,7 @@ const Index = () => {
             </motion.div>
 
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Link to="/dashboard">
+              <Link to="/auth/register">
                 <motion.div
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
@@ -270,7 +269,7 @@ const Index = () => {
                     className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-12 py-6 text-lg font-semibold border-0 shadow-2xl shadow-blue-500/25"
                   >
                     <span className="relative z-10 flex items-center">
-                      Launch Platform
+                      Get Started
                       <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <motion.div
