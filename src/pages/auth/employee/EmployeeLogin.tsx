@@ -5,8 +5,18 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Eye, EyeOff, Mail, Lock, Building2, ArrowLeft, Sparkles, ShieldCheck, UserCheck } from 'lucide-react';
+import { 
+  Eye, 
+  EyeOff, 
+  Mail, 
+  Lock, 
+  Building2, 
+  ArrowLeft, 
+  Sparkles, 
+  ShieldCheck,
+  IdCard,
+  AlertTriangle
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -15,8 +25,8 @@ const EmployeeLogin = () => {
   const [formData, setFormData] = useState({
     employeeId: '',
     email: '',
-    department: '',
-    password: ''
+    password: '',
+    department: ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -44,19 +54,6 @@ const EmployeeLogin = () => {
       transition: { duration: 0.4 }
     }
   };
-
-  const departments = [
-    "Ministry of Home Affairs",
-    "Ministry of Law and Justice",
-    "Ministry of Railways",
-    "Ministry of Health",
-    "Ministry of Education",
-    "Ministry of Finance",
-    "Ministry of Defense",
-    "Department of Posts",
-    "Income Tax Department",
-    "Customs Department"
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 flex items-center justify-center p-4">
@@ -121,13 +118,24 @@ const EmployeeLogin = () => {
             </CardHeader>
             
             <CardContent className="space-y-6">
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+                <div className="flex items-center space-x-2 text-amber-700">
+                  <AlertTriangle className="w-4 h-4" />
+                  <span className="text-sm font-medium">Official Use Only</span>
+                </div>
+                <p className="text-xs text-amber-600 mt-1">
+                  This portal is restricted to authorized government employees. 
+                  Unauthorized access is prohibited and monitored.
+                </p>
+              </div>
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <motion.div variants={itemVariants} className="space-y-2">
                   <Label htmlFor="employeeId" className="text-sm font-medium text-gray-700">
                     Employee ID
                   </Label>
                   <div className="relative">
-                    <UserCheck className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <IdCard className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <Input
                       id="employeeId"
                       type="text"
@@ -141,19 +149,21 @@ const EmployeeLogin = () => {
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="space-y-2">
-                  <Label className="text-sm font-medium text-gray-700">
+                  <Label htmlFor="department" className="text-sm font-medium text-gray-700">
                     Department
                   </Label>
-                  <Select value={formData.department} onValueChange={(value) => setFormData({...formData, department: value})}>
-                    <SelectTrigger className="border-gray-300 focus:border-orange-500 focus:ring-orange-500">
-                      <SelectValue placeholder="Select your department" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {departments.map((dept) => (
-                        <SelectItem key={dept} value={dept}>{dept}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="relative">
+                    <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <Input
+                      id="department"
+                      type="text"
+                      placeholder="Enter your department"
+                      value={formData.department}
+                      onChange={(e) => setFormData({...formData, department: e.target.value})}
+                      className="pl-10 border-gray-300 focus:border-orange-500 focus:ring-orange-500"
+                      required
+                    />
+                  </div>
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="space-y-2">
@@ -208,10 +218,10 @@ const EmployeeLogin = () => {
                 <motion.div variants={itemVariants} className="flex items-center justify-between">
                   <label className="flex items-center space-x-2 text-sm">
                     <input type="checkbox" className="rounded border-gray-300 text-orange-600 focus:ring-orange-500" />
-                    <span className="text-gray-600">Remember me</span>
+                    <span className="text-gray-600">Keep me signed in</span>
                   </label>
                   <Link to="#" className="text-sm text-orange-600 hover:text-orange-700 transition-colors">
-                    Forgot password?
+                    Reset password?
                   </Link>
                 </motion.div>
 
@@ -227,8 +237,15 @@ const EmployeeLogin = () => {
               </form>
 
               <motion.div variants={itemVariants} className="text-center">
-                <p className="text-sm text-gray-500">
-                  Need assistance? Contact your department IT administrator
+                <p className="text-xs text-gray-500">
+                  For account setup or technical support, contact IT administration
+                </p>
+              </motion.div>
+
+              <motion.div variants={itemVariants} className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                <p className="text-xs text-gray-600 text-center">
+                  <ShieldCheck className="w-3 h-3 inline mr-1" />
+                  All login attempts are logged and monitored for security purposes
                 </p>
               </motion.div>
             </CardContent>
