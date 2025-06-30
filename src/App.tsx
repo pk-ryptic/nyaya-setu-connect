@@ -18,6 +18,7 @@ import LawyerRegister from "./pages/auth/lawyer/LawyerRegister";
 import EmployeeLogin from "./pages/auth/employee/EmployeeLogin";
 import AdminLogin from "./pages/auth/admin/AdminLogin";
 import NotFound from "./pages/NotFound";
+import Chatbot from "./components/Chatbot";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -64,6 +65,9 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        
+        {/* Global Chatbot - appears on every page */}
+        <Chatbot />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
